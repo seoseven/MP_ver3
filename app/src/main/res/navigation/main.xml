@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    app:startDestination="@id/pagerFr"
+    tools:ignore="UnusedNavigation">
+
+    <fragment
+        android:id="@+id/pagerFr"
+        android:name="com.nwu.ypf.mp_ver3.ui.main.PagerFr"
+        android:label="PagerFr"
+        tools:layout="@layout/fr_pager">
+        <action
+            android:id="@+id/action_pagerFr_to_playerFr"
+            app:destination="@id/playerFr"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+        <action
+            android:id="@+id/action_pagerFr_to_singerMusicFr"
+            app:destination="@id/singerMusicFr" />
+        <action
+            android:id="@+id/action_pagerFr_to_albumMusicFr"
+            app:destination="@id/albumMusicFr" />
+        <action
+            android:id="@+id/action_pagerFr_to_recentMusicListFr"
+            app:destination="@id/recentMusicListFr" />
+        <action
+            android:id="@+id/action_pagerFr_to_favoriteMusicListFr"
+            app:destination="@id/favoriteMusicListFr" />
+    </fragment>
+    <fragment
+        android:id="@+id/playerFr"
+        android:name="com.nwu.ypf.mp_ver3.ui.player.PlayerFr"
+        android:label="PlayerFr"
+        tools:layout="@layout/fr_player" />
+    <fragment
+        android:id="@+id/singerMusicFr"
+        android:name="com.nwu.ypf.mp_ver3.ui.singermusic.SingerMusicFr"
+        android:label="SingerMusicFr"
+        tools:layout="@layout/fr_singer_music" />
+    <fragment
+        android:id="@+id/albumMusicFr"
+        android:name="com.nwu.ypf.mp_ver3.ui.albummusic.AlbumMusicFr"
+        android:label="AlbumMusicFr"
+        tools:layout="@layout/fr_album_music" />
+    <fragment
+        android:id="@+id/recentMusicListFr"
+        android:name="com.nwu.ypf.mp_ver3.ui.recentmusic.RecentMusicListFr"
+        android:label="RecentMusicListFr"
+        tools:layout="@layout/fr_recent_music" />
+    <fragment
+        android:id="@+id/favoriteMusicListFr"
+        android:name="com.nwu.ypf.mp_ver3.ui.favoritemusic.FavoriteMusicListFr"
+        android:label="FavoriteMusicListFr"
+        tools:layout="@layout/fr_favorite_music" />
+</navigation>

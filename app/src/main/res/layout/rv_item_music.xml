@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="com.nwu.ypf.mp_ver3.util.Util" />
+
+        <variable
+            name="playManager"
+            type="com.nwu.ypf.mp_ver3.util.PlayManager" />
+
+        <variable
+            name="musicInfo"
+            type="com.nwu.ypf.mp_ver3.bean.IMusicInfo" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        style="@style/Widget.ListItem"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/musicName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{musicInfo.musicName}"
+            android:textAppearance="@style/TextAppearance.ListTitle"
+            android:textColor="@{Util.getMusicNameColor(context,playManager.playingMusic,musicInfo)}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Music title" />
+
+        <TextView
+            android:id="@+id/musicInfo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{@string/music_info(musicInfo.artist, musicInfo.albumName)}"
+            android:textAppearance="@style/TextAppearance.ListContent"
+            app:layout_constraintStart_toStartOf="@+id/musicName"
+            app:layout_constraintTop_toBottomOf="@+id/musicName"
+            tools:text="@string/music_info" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

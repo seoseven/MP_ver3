@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="album"
+            type="com.nwu.ypf.mp_ver3.bean.Album" />
+    </data>
+
+    <LinearLayout
+        style="@style/Widget.ListItem"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/albumPic"
+            style="@style/Widget.ImageView.Album.Mini"
+            app:musicAlbumPic="@{album}"
+            tools:ignore="ContentDescription"
+            tools:srcCompat="@tools:sample/avatars" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/albumName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{album.name}"
+                android:textAppearance="@style/TextAppearance.ListTitle"
+                tools:text="周傑倫" />
+
+            <TextView
+                android:id="@+id/musicInfo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="@{@string/music_count(album.music.size())}"
+                android:textAppearance="@style/TextAppearance.ListContent"
+                tools:text="1首" />
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/imageView"
+            style="@style/Widget.ImageView.Arrow"
+            tools:ignore="ContentDescription" />
+    </LinearLayout>
+</layout>

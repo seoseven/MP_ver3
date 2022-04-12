@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="model"
+            type="com.nwu.ypf.mp_ver3.ui.main.PagerViewModel" />
+
+        <!--Mini Player-->
+        <import type="com.nwu.ypf.mp_ver3.util.Util" />
+
+        <import type="com.nwu.ypf.mp_ver3.bean.IMusicInfo" />
+
+        <import type="com.nwu.ypf.mp_ver3.util.PlayState" />
+
+        <variable
+            name="musicInfo"
+            type="androidx.lifecycle.LiveData&lt;IMusicInfo>" />
+
+        <variable
+            name="state"
+            type="androidx.lifecycle.LiveData&lt;PlayState>" />
+
+        <variable
+            name="clickListener"
+            type="android.view.View.OnClickListener" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?attr/colorPrimary"
+            android:minHeight="?attr/actionBarSize"
+            android:theme="?attr/actionBarTheme" />
+
+        <FrameLayout
+            android:id="@+id/frame"
+            visibleGone="@{model.showSearchResult}"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            tools:visibility="visible" />
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tabLayout"
+            visibleGone="@{!model.showSearchResult}"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/viewPager"
+            visibleGone="@{!model.showSearchResult}"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal" />
+
+        <include
+            android:id="@+id/miniPlayer"
+            layout="@layout/view_mini_player"
+            app:musicInfo="@{musicInfo}"
+            app:onClickListener="@{clickListener}"
+            app:state="@{state}" />
+    </LinearLayout>
+</layout>

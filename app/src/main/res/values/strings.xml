@@ -1,0 +1,45 @@
+<resources>
+    <string name="app_name">MP_ver3</string>
+    <string name="app_loading">加载中</string>
+
+    <string name="menu_search">搜索</string>
+
+    <string name="pager_music">音乐</string>
+    <string name="pager_singer">歌手</string>
+    <string name="pager_album">专辑</string>
+    <string name="pager_playsheet">歌单</string>
+    <string name="pager_search">搜索本地歌曲</string>
+
+    <string name="timer_title">设置自动停止播放</string>
+    <string-array name="timer_options_off">
+        <item>5分钟后</item>
+        <item>10分钟后</item>
+        <item>15分钟后</item>
+    </string-array>
+    <string-array name="timer_options_on">
+        <item>5分钟后</item>
+        <item>10分钟后</item>
+        <item>15分钟后</item>
+        <item>取消</item>
+    </string-array>
+
+    <string name="detail_name">名称：</string>
+    <string name="detail_singer">歌手：</string>
+    <string name="detail_album">专辑：</string>
+    <string name="detail_format">格式：</string>
+    <string name="detail_size">大小：</string>
+    <string name="detail_path">路径：</string>
+
+    <string name="playsheet_recent">最近播放</string>
+    <string name="playsheet_favorite">我喜欢</string>
+
+    <string name="music_count">%1$d首</string>
+    <string name="music_info">%1$s | %2$s</string>
+
+    <string name="notify_channel_player_name">音乐播放</string>
+    <string name="notify_channel_player_desc">用于后台播放音乐</string>
+
+    <string name="notify_player_waiting_play">等待播放</string>
+
+    <integer name="animator_duration">1000</integer>
+</resources>

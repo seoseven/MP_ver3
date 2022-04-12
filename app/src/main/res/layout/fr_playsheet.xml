@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="clickListener"
+            type="android.view.View.OnClickListener" />
+
+        <variable
+            name="model"
+            type="com.nwu.ypf.mp_ver3.ui.playsheet.PlaySheetViewModel" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <!-- 最近播放 -->
+
+        <LinearLayout
+            android:id="@+id/recent"
+            style="@style/Widget.ListItem.PlaySheet"
+            app:onClickListener="@{clickListener}">
+
+            <ImageView
+                style="@style/Widget.ImageView.Item.PlaySheet"
+                android:background="#26D383"
+                app:srcCompat="@drawable/ic_playsheet_recent"
+                tools:ignore="ContentDescription" />
+
+            <LinearLayout style="@style/Widget.ListItem.PlaySheet.Inner">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/playsheet_recent"
+                    android:textAppearance="@style/TextAppearance.ListTitle" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="@{@string/music_count(model.recentMusic.size())}"
+                    android:textAppearance="@style/TextAppearance.ListContent"
+                    tools:text="@string/music_count" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- 我喜欢 -->
+
+        <LinearLayout
+            android:id="@+id/favorite"
+            style="@style/Widget.ListItem.PlaySheet"
+            app:onClickListener="@{clickListener}">
+
+            <ImageView
+                style="@style/Widget.ImageView.Item.PlaySheet"
+                android:background="#ea3447"
+                app:srcCompat="@drawable/ic_playsheet_favorite"
+                tools:ignore="ContentDescription" />
+
+            <LinearLayout style="@style/Widget.ListItem.PlaySheet.Inner">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/playsheet_favorite"
+                    android:textAppearance="@style/TextAppearance.ListTitle" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="@{@string/music_count(model.favoriteMusic.size())}"
+                    android:textAppearance="@style/TextAppearance.ListContent"
+                    tools:text="@string/music_count" />
+            </LinearLayout>
+        </LinearLayout>
+
+    </LinearLayout>
+</layout>

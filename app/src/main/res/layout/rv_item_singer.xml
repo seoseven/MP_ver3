@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="singer"
+            type="com.nwu.ypf.mp_ver3.bean.Singer" />
+    </data>
+
+    <LinearLayout
+        style="@style/Widget.ListItem"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/singerName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@{singer.name}"
+            android:textAppearance="@style/TextAppearance.ListTitle"
+            tools:text="周傑倫" />
+
+        <TextView
+            android:id="@+id/musicInfo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{@string/music_count(singer.music.size())}"
+            android:textAppearance="@style/TextAppearance.ListContent"
+            tools:text="1首" />
+
+        <ImageView
+            android:id="@+id/imageView"
+            style="@style/Widget.ImageView.Arrow"
+            tools:ignore="ContentDescription" />
+    </LinearLayout>
+</layout>

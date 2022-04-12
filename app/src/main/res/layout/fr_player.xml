@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="com.nwu.ypf.mp_ver3.util.Util" />
+
+        <import type="com.nwu.ypf.mp_ver3.bean.IMusicInfo" />
+
+        <import type="com.nwu.ypf.mp_ver3.util.PlayState" />
+
+        <import type="com.nwu.ypf.mp_ver3.util.strategy.MusicSwitchStrategy" />
+
+        <variable
+            name="playManager"
+            type="com.nwu.ypf.mp_ver3.util.PlayManager" />
+
+        <variable
+            name="clickListener"
+            type="android.view.View.OnClickListener" />
+
+        <variable
+            name="state"
+            type="androidx.lifecycle.LiveData&lt;PlayState>" />
+
+        <variable
+            name="musicInfo"
+            type="androidx.lifecycle.LiveData&lt;IMusicInfo>" />
+
+        <variable
+            name="playPosition"
+            type="androidx.lifecycle.LiveData&lt;Integer>" />
+
+        <variable
+            name="switchStrategy"
+            type="androidx.lifecycle.LiveData&lt;MusicSwitchStrategy>" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/rootLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#B0D8E0">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            style="@style/Widget.Toolbar"
+            android:background="@null"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/favorite"
+                style="@style/Widget.ImageView.Button.Player"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:layout_gravity="center_vertical|end"
+                android:layout_marginEnd="8dp"
+                android:padding="3dp"
+                android:tint="#FC1E60"
+                app:onClickListener="@{clickListener}"
+                app:srcCompat="@drawable/ic_player_favorite_on"
+                tools:ignore="ContentDescription" />
+        </androidx.appcompat.widget.Toolbar>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardView"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/guideline">
+
+            <ImageView
+                android:id="@+id/musicAlbum"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                tools:ignore="ContentDescription"
+                tools:srcCompat="@tools:sample/avatars" />
+        </androidx.cardview.widget.CardView>
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.15" />
+
+        <TextView
+            android:id="@+id/musicName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="@{musicInfo.musicName}"
+            android:textColor="?android:textColorPrimary"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cardView"
+            tools:text="Fly" />
+
+        <TextView
+            android:id="@+id/musicInfo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@{musicInfo.artist}"
+            android:textColor="?android:textColorSecondary"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/musicName"
+            tools:text="This is music info" />
+
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="24dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/musicInfo">
+
+            <TextView
+                android:id="@+id/timeCurrent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{Util.formatTime(playPosition)}"
+                android:textAppearance="@style/TextAppearance.PlayerTime"
+                tools:layout_editor_absoluteX="47dp"
+                tools:layout_editor_absoluteY="506dp"
+                tools:text="00:01" />
+
+            <SeekBar
+                android:id="@+id/seekBar"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="2dp"
+                android:layout_marginEnd="2dp"
+                android:layout_weight="1"
+                android:progress="@{playPosition}"
+                app:max="@{musicInfo.duration}"
+                tools:layout_editor_absoluteX="135dp"
+                tools:layout_editor_absoluteY="507dp" />
+
+            <TextView
+                android:id="@+id/timeTotal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{Util.formatTime(musicInfo.duration)}"
+                android:textAppearance="@style/TextAppearance.PlayerTime"
+                tools:layout_editor_absoluteX="262dp"
+                tools:layout_editor_absoluteY="506dp"
+                tools:text="04:54" />
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/skipPrevious"
+            style="@style/Widget.ImageView.Button.Player"
+            android:onClick="@{()-> playManager.skipPrevious(true)}"
+            app:layout_constraintBottom_toBottomOf="@+id/play"
+            app:layout_constraintEnd_toStartOf="@+id/play"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/play"
+            app:srcCompat="@drawable/ic_player_skip_previous"
+            tools:ignore="ContentDescription" />
+
+        <ImageView
+            android:id="@+id/skipNext"
+            style="@style/Widget.ImageView.Button.Player"
+            android:layout_marginTop="32dp"
+            android:onClick="@{()-> playManager.skipNext(true)}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/play"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+            app:srcCompat="@drawable/ic_player_skip_next"
+            tools:ignore="ContentDescription" />
+
+        <ImageView
+            android:id="@+id/play"
+            style="@style/Widget.ImageView.Button.Player"
+            android:background="@drawable/bg_player_button"
+            android:onClick="@{()-> playManager.toggleState()}"
+            android:padding="12dp"
+            android:tint="@android:color/white"
+            app:imageResource="@{Util.getPlayerPlayButtonRes(state)}"
+            app:layout_constraintBottom_toBottomOf="@+id/skipNext"
+            app:layout_constraintEnd_toStartOf="@+id/skipNext"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/skipPrevious"
+            app:layout_constraintTop_toTopOf="@+id/skipNext"
+            tools:ignore="ContentDescription"
+            tools:srcCompat="@drawable/ic_player_play" />
+
+        <ImageView
+            android:id="@+id/switchStrategy"
+            style="@style/Widget.ImageView.Button.Player.Action"
+            android:onClick="@{()-> playManager.toggleSwitchStrategy()}"
+            app:imageResource="@{Util.getMusicSwitchStrategyIconRes(switchStrategy)}"
+            app:layout_constraintBottom_toBottomOf="@+id/timer"
+            app:layout_constraintEnd_toStartOf="@+id/timer"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/timer"
+            tools:ignore="ContentDescription"
+            tools:srcCompat="@drawable/ic_player_strategy_circle" />
+
+        <ImageView
+            android:id="@+id/timer"
+            style="@style/Widget.ImageView.Button.Player.Action"
+            android:tint="@{Util.getTimerColor(context,playManager.autoStopTime)}"
+            app:layout_constraintBottom_toBottomOf="@+id/menu"
+            app:layout_constraintEnd_toStartOf="@+id/menu"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/switchStrategy"
+            app:layout_constraintTop_toTopOf="@+id/menu"
+            app:onClickListener="@{clickListener}"
+            app:srcCompat="@drawable/ic_player_timer"
+            tools:ignore="ContentDescription" />
+
+        <ImageView
+            android:id="@+id/menu"
+            style="@style/Widget.ImageView.Button.Player.Action"
+            android:layout_marginTop="32dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/timer"
+            app:layout_constraintTop_toBottomOf="@+id/skipNext"
+            app:onClickListener="@{clickListener}"
+            app:srcCompat="@drawable/ic_player_menu"
+            tools:ignore="ContentDescription" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
